@@ -6,7 +6,7 @@ This repository contains every piece of the Noted project that doesn't fit into 
 
 **Location:** `github-robot`
 
-Github robot is a simple automation script designed to automatically create labels and milestones in multiple repositories at once using a PAT.
+Github robot is a simple automation script designed to automatically create labels and milestones in multiple repositories at once using the github CLI.
 
 ## Contributing Guidelines
 
