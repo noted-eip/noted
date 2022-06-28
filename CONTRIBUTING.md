@@ -1,5 +1,9 @@
 # Contributing Guidelines
 
+This set of guidelines is common to all repositories in the Noted organization.
+
+## Project Management
+
 In order to frictionlessly roll out new features and maintain satisfactory productivity levels despite the distance, it's crucial that we organize ourselves and plan our work collectively.
 
 > 💡 This specification aims to
@@ -8,7 +12,7 @@ In order to frictionlessly roll out new features and maintain satisfactory produ
 > - Be simple and native to Github
 > - Limit administrative work (maintaining todo-lists, updating statuses, etc)
 
-## User Stories
+### User Stories
 
 This step is to be executed during the inter-sprint period. During this time, the PLD must be redacted and all the user-stories that will be completed during this sprint must be defined.
 
@@ -32,14 +36,16 @@ Make sure your issue meets the following criteria:
 
 As soon as you start working on an user-story, create a new branch, open a pull request and link it to your issue. If you're unsure how to do this, check out this [guide](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
 
-As you're progressing, make sure to check-off completed tasks whithin the `Definition of Done` section whithin your issue.
-
-On the following image you can see:
-
-1. The tasks marked as completed.
-2. The issue is linked to its pull request.
+Here is what your issue should look like during development.
 
 ![User story with linked pull request](assets/user-story-linked-pull-request.png)
+
+Make sure:
+
+1. Tasks are checked-off as you complete them.
+2. The issue is linked to its associated pull request.
+
+As you're progressing, make sure to check-off completed tasks whithin the `Definition of Done` section whithin your issue.
 
 ### Milestones
 
@@ -52,6 +58,8 @@ Github projects™️ allow you to visualize issues and pull requests from many 
 ![Roadmap project](assets/github-project-roadmap.png)
 
 If you have successfuly linked your `noted/user-story` issue to the project, you shouldn't have to perform any manual action on the project. You should be able to see all user-stories and their status.
+
+You can filter stories by repository, assignee, todo, milestone and more.
 
 ### Weekly Meetings
 
