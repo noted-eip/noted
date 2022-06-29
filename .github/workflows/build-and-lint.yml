@@ -1,0 +1,14 @@
+name: build-and-lint
+on: [push]
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          version: '1.6.0'
+      - name: Lint
+        uses: bufbuild/buf-lint-action@v1
