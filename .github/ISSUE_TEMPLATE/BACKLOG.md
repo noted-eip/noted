@@ -1,5 +1,5 @@
 ---
-name: Backlog Entry
+name: Backlog
 about: A story for a future sprint
 title: ""
 labels: "noted/backlog"
