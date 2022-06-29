@@ -10,6 +10,6 @@ Github robot is a simple automation script designed to automatically create labe
 
 ## Contributing Guidelines
 
-**Location:** `CONTRIBUTING.md`, `./assets`
+**Location:** `docs/CONTRIBUTING.md`
 
 The contributing guidelines for our group.
