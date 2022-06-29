@@ -47,6 +47,8 @@ Make sure:
 
 As you're progressing, make sure to check-off completed tasks whithin the `Definition of Done` section whithin your issue.
 
+> 💡 If the scope of your user-story is big, feel free to create multiple pull requests for a single user-story. In this case, don't link the PR to the user-story issue otherwise it will be merged as soon as your first PR is merged.
+
 ### Milestones
 
 Milestones define a due date for a given user-story. Each time you create a user-story issue, associate it with a milestone to set a due date. Milestones exist under the form `<Late|Early> <month>`. They are generated automatically, you just have to pick one.
