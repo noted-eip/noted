@@ -7,6 +7,7 @@ REPOSITORIES=(
     "notes-service"
     "recommendations-service"
     "web-desktop"
+    "mobile"
 )
 
 mkdir -p ./tmp

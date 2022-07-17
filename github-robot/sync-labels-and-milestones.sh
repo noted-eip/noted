@@ -13,6 +13,7 @@ REPOSITORIES=(
     "recommendations-service"
     "web-desktop"
     "noted"
+    "mobile"
 )
 
 for repo in ${REPOSITORIES[@]}; do
