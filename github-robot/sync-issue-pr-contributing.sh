@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Repositories in which to create issues and milestones.
 REPOSITORIES=(
     "protorepo"
@@ -8,6 +10,7 @@ REPOSITORIES=(
     "recommendations-service"
     "web-desktop"
     "mobile"
+    "pld-generator"
 )
 
 mkdir -p ./tmp

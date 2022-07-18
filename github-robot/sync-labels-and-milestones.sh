@@ -14,6 +14,7 @@ REPOSITORIES=(
     "web-desktop"
     "noted"
     "mobile"
+    "pld-generator"
 )
 
 for repo in ${REPOSITORIES[@]}; do
