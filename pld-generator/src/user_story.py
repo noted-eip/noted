@@ -1,6 +1,7 @@
 from typing import Optional
 from decorators import object_must_be_valid
 import inspect
+import markdown as md
 
 class UserStory:
     title:               Optional[str]
@@ -14,4 +15,11 @@ class UserStory:
 
     @object_must_be_valid
     def to_markdown(self) -> str:
-        pass
+        return '\n'.join([
+            md.title(self.title, priority=2),
+            md.title("Assignees", priority=3),
+            md.dotted_list(self.definitions_of_done),
+            md.title("DOD", priority=3),
+            md.dotted_list(self.definitions_of_done),
+            md.title(f"{self.duration_in_days} {md.bold('j/H')}", priority=4)
+        ])
