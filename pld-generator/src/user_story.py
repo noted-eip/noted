@@ -3,6 +3,12 @@ from decorators import object_must_be_valid
 import inspect
 import markdown as md
 
+class Issue:
+    title:      str
+    body:       str
+    assignees:  list[str]
+    repo_name:  str
+
 class UserStory:
     title:               Optional[str]
     description:         Optional[str]
