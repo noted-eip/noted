@@ -1,7 +1,6 @@
 import requests
 
-
-def request(endpoint, query, headers=None):
+def request(endpoint:str, query:str, headers:dict[str, str] = None):
     try:
         req = requests.post(
           endpoint, 
