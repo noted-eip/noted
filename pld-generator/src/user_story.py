@@ -3,7 +3,7 @@ from decorators import object_must_be_valid
 import inspect
 import md
 import re
-from pprint import pprint
+import logging
 
 
 class UserStory:
@@ -82,8 +82,14 @@ class Issue:
         self.body = self._clean_crlf_to_lf(self.body).strip("\n ")
         body_dict = self._parse_issue_body_to_dict(self.body)
 
-        result.definitions_of_done = body_dict['Definition of Done'].split('\n')
-        result.description         = body_dict['Description']
-        result.duration_in_days    = re.search("\d+", body_dict['Estimation']).group()
-
+        try:
+            result.definitions_of_done = body_dict['Definition of Done'].split('\n')
+            result.description         = body_dict['Description']
+            duration_regex = re.search("\d+(\.\d+)?", body_dict['Estimation'])
+            if duration_regex:
+                result.duration_in_days = duration_regex.group()
+            else:
+                logging.error(f"Please set an estimation in 'J/H' in your issue ({result.title})")
+        except Exception as e :
+            logging.error(f"error with issue '{result.title}': {e}\n")
         return result
