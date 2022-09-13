@@ -75,7 +75,7 @@ class Issue:
     def to_user_story(self):
         result = UserStory()
         result.title = self.title
-        # TODO: result.assignees get real names
+        result.assignees = self.assignees
         result.repo_name = self.repo_name
         
         self.body = self._clean_html_comments(self.body)
