@@ -1,4 +1,7 @@
-from src.generate import generate
+import sys
 
-if __name__ == '__main__':
+sys.path.insert(1, "src")
+from generate import generate
+
+if __name__ == "__main__":
     generate()
