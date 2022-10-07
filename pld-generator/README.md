@@ -1,5 +1,7 @@
 # PLD Generator
 
+Running the script will generate an md, html and pdf file for your PLD.
+
 ## PDF generation
 
 You will need [`gh-md-to-html`](https://github.com/phseiff/github-flavored-markdown-to-html) with it's pdf export module and offline conversion (for convenience purposes).
