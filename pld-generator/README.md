@@ -1,8 +1,12 @@
 # PLD Generator
 
+## PDF generation
+
+You will need [`gh-md-to-html`](https://github.com/phseiff/github-flavored-markdown-to-html) with it's pdf export module and offline conversion (for convenience purposes).
+
 ## GITHUB_OAUTH_TOKEN
 
-You need to set a `GITHUB_OAUTH_TOKEN` env variable which has the permission to read the organizations and issues from this organization
+You need to set a `GITHUB_OAUTH_TOKEN` env variable which has the permission to read the organizations and issues from this organization.
 
 ## Formatter
 
