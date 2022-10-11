@@ -1,9 +1,8 @@
 from typing import Optional
 from decorators import object_must_be_valid
 import inspect
-import md
+import pythonic_md as md
 import re
-import github
 import logging
 
 
@@ -88,9 +87,10 @@ class Issue:
         try:
             result.definitions_of_done = body_dict["Definition of Done"].split("\n")
             result.description = body_dict["Description"]
-            duration_regex = re.search("\d+(\.\d+)?", body_dict["Estimation"])
+            duration_regex = re.search("\d+([.,]\d+)?", body_dict["Estimation"])
             if duration_regex:
-                result.duration_in_days = duration_regex.group()
+                duration_fix = duration_regex.group().replace(",", ".")
+                result.duration_in_days = float(duration_fix)
             else:
                 logging.error(
                     f"Please set an estimation in 'J/H' in your issue ({result.title})"

@@ -1,5 +1,4 @@
 import requests
-import json
 import os
 import graphql
 import logging
@@ -26,7 +25,7 @@ MAX_PROJECTS = int(os.getenv("MAX_PROJECTS") or 5)
 
 username_to_name: dict[str, str] = {
     "kfleury": "Killian Fleury",
-    "tomasit": "Thomas Ittel",
+    "tomasit": "Thomas Itel",
 }
 
 
@@ -77,6 +76,9 @@ def _make_issue_from_github_graphl_result(json_issue: dict[str, any]):
     result.title = json_issue["title"]
     result.body = json_issue["body"]
 
+    # TODO: Sort by repo name and do 1.1 1.2 etc ?
+    result.repo_name = json_issue["repository"]["name"]
+
     result.assignees = []
 
     global username_to_name
@@ -88,7 +90,6 @@ def _make_issue_from_github_graphl_result(json_issue: dict[str, any]):
                 username_to_name[username] = username
         result.assignees.append(username_to_name[username])
 
-    result.repo_name = json_issue["repository"]["name"]
     return result
 
 
