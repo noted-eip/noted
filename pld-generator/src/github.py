@@ -137,9 +137,9 @@ def get_all_issues_from_project(project_id: str):
 
     try:
         all_issues_json = req_json["data"]["node"]["items"]["nodes"]
-
         check_if_issue_is_a_user_story = (
-            lambda issue: {"name": "noted/story"} in issue["content"]["labels"]["nodes"]
+            lambda issue: issue["content"] != {}
+            and {"name": "noted/story"} in issue["content"]["labels"]["nodes"]
         )
 
         all_issues_json = list(filter(check_if_issue_is_a_user_story, all_issues_json))

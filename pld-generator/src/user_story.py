@@ -25,12 +25,12 @@ class UserStory:
     def to_markdown(self) -> str:
         return "\n".join(
             [
-                md.title(self.title, priority=2),
+                md.title(md.bold(self.title), priority=2),
                 md.title("Assignees", priority=3),
                 md.dotted_list(self.assignees),
                 md.title("DOD", priority=3),
                 "\n".join(self.definitions_of_done),
-                md.title(f"{self.duration_in_days} {md.bold('j/H')}", priority=4),
+                md.title(f"{self.duration_in_days} j/H", priority=4),
             ]
         )
 

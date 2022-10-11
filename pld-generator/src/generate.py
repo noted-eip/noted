@@ -1,5 +1,6 @@
 import github
 import os
+import re
 from pld import PLD
 from workload import generate_workload_visualization
 
@@ -18,7 +19,12 @@ def generate() -> None:
 
     pld = PLD(user_stories)
 
+    pld_markdown = pld.to_markdown()
+
+    # Remove checkboxes
+    pld_markdown = re.sub("- \[[xX ]?\]", "- ", pld_markdown)
+
     with open("pld.md", "w") as f:
-        f.write(pld.to_markdown())
+        f.write(pld_markdown)
 
     generate_workload_visualization(user_stories)
