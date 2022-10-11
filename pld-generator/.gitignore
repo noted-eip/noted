@@ -163,5 +163,4 @@ cython_debug/
 github-markdown-css/
 images/
 *.html
-*.md
 *.pdf
