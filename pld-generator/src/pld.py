@@ -58,7 +58,8 @@ class PLD:
         ]:
             output += f"{self.before_user_stories[part]}\n{md.separator()}\n"
 
-        output += f"{md.title('User stories', priority=2)}\n"
+        output += f"{md.bold(md.title('User stories'))}\n"
+        # print(*[story.to_markdown() for story in self.user_stories], sep='\n')
         output += f"\n{md.separator()}\n".join(
             [story.to_markdown() for story in self.user_stories]
         )

@@ -12,13 +12,15 @@ def generate_workload_visualization(user_stories: list[UserStory]):
             continue
         number_of_assignees = float(len(story.assignees))
         for assignee in story.assignees:
+            if story.duration_in_days == 'X':
+                continue
             if assignee not in user_workload_dict:
                 user_workload_dict[assignee] = (
-                    story.duration_in_days / number_of_assignees
+                    float(story.duration_in_days) / number_of_assignees
                 )
             else:
                 user_workload_dict[assignee] += (
-                    story.duration_in_days / number_of_assignees
+                    float(story.duration_in_days) / number_of_assignees
                 )
 
     pprint(user_workload_dict)

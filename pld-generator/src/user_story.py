@@ -11,7 +11,7 @@ class UserStory:
     description: Optional[str]
     assignees: Optional[list[str]]
     definitions_of_done: Optional[list[str]]
-    duration_in_days: Optional[float]
+    duration_in_days: Optional[str]
 
     repo_name: Optional[str]
 
@@ -23,17 +23,21 @@ class UserStory:
 
     @object_must_be_valid
     def to_markdown(self) -> str:
-        return "\n".join(
+        result = "\n".join(
             [
                 md.title(md.bold(self.title), priority=2),
-                md.title("Assignees", priority=3),
-                md.dotted_list(self.assignees),
-                md.title("DOD", priority=3),
+                md.title("Description", priority=3),
+                self.description,
+                md.title("Definitions Of Done", priority=3),
                 "\n".join(self.definitions_of_done),
-                md.title(f"{self.duration_in_days} j/H", priority=4),
+                '\n',
+                f"<b>{self.duration_in_days} JH - {', '.join(self.assignees)}</b>",
+                '\n'
             ]
         )
-
+        if result is None:
+            logging.error(f"'{self.title}' user story is not valid.")
+        return result
 
 class Issue:
     title: str
@@ -90,11 +94,10 @@ class Issue:
             duration_regex = re.search("\d+([.,]\d+)?", body_dict["Estimation"])
             if duration_regex:
                 duration_fix = duration_regex.group().replace(",", ".")
-                result.duration_in_days = float(duration_fix)
+                result.duration_in_days = duration_fix
             else:
-                logging.error(
-                    f"Please set an estimation in 'J/H' in your issue ({result.title})"
-                )
+                result.duration_in_days = 'X'    
+                
         except Exception as e:
             logging.error(f"error with issue '{result.title}': {e}\n")
         return result
