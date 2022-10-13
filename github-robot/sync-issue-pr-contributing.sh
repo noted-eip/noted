@@ -8,6 +8,7 @@ REPOSITORIES=(
     "notes-service"
     "recommendations-service"
     "web-desktop"
+    "infra"
     "mobile"
 )
 
