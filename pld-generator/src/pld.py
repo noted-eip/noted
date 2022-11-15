@@ -4,6 +4,15 @@ import os, glob
 
 _HARD_CODED_FILES_PATH = "./hard-coded-pages"
 
+_REAL_REPO_NAMES = {
+    'api-gateway': "API Gateway",
+    'accounts-service': 'Accounts service',
+    'mobile': 'Mobile',
+    'noted': 'Misc',
+    'notes-service': 'Note service',
+    'recommendations-service': 'Recommendation service',
+    'web-desktop': 'Web'
+}
 
 class PLD:
     before_user_stories: dict[str, str]
@@ -44,8 +53,7 @@ class PLD:
             f"{_HARD_CODED_FILES_PATH}/schemas.md"
         )
 
-    def to_markdown(self):
-        # TODO : All the other informations
+    def to_markdown(self, repo_name_in_order:list=[]):
         self._generate_markdown_before_user_stories()
         self._generate_rapports()
 
@@ -58,13 +66,29 @@ class PLD:
         ]:
             output += f"{self.before_user_stories[part]}\n{md.separator()}\n"
 
-        output += f"{md.bold(md.title('User stories'))}\n"
-        # print(*[story.to_markdown() for story in self.user_stories], sep='\n')
-        output += f"\n{md.separator()}\n".join(
-            [story.to_markdown() for story in self.user_stories]
-        )
+        output += f"{md.title(md.bold('User stories'))}\n"
+        index = 1
+        last_repo_name = ""
+        order_available = repo_name_in_order != []
+        for story in self.user_stories:
+            story_result = ""
+            repo_name_index = 0
+            if order_available:
+                repo_name_index = repo_name_in_order.index(story.repo_name)
+            if last_repo_name != story.repo_name:
+                new_category_title = ""
+                if order_available:
+                        new_category_title += f"{repo_name_index + 1} - "  
+                new_category_title += _REAL_REPO_NAMES[story.repo_name]
+                output += md.title(md.bold(new_category_title), priority=2) + '\n'
+                index = 1
+            last_repo_name = story.repo_name
+            if  order_available:
+                story.title = f"{repo_name_index + 1}.{index} - " + story.title.strip()
+            output += story.to_markdown()
+            index += 1
 
         rapports_title = "Rapports d'avancement"
-        output += f"\n{md.title(rapports_title, priority=2)}\n"  # chr(39) to workaround the apostrophe in a fstring
+        output += f"\n{md.title(rapports_title, priority=1)}\n"  # chr(39) to workaround the apostrophe in a fstring
         output += f"\n{md.separator()}\n".join(self.rapports)
         return output

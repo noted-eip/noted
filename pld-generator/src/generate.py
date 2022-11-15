@@ -17,9 +17,11 @@ def generate() -> None:
     user_stories = [issue.to_user_story() for issue in issues_object_list]
     user_stories = sorted(user_stories, key=lambda story: story.repo_name)
 
+    repo_names_in_order = sorted(set([user_story.repo_name for user_story in user_stories]))
+
     pld = PLD(user_stories)
 
-    pld_markdown = pld.to_markdown()
+    pld_markdown = pld.to_markdown(repo_names_in_order)
 
     # Remove checkboxes
     pld_markdown = re.sub("- \[[xX ]?\]", "- ", pld_markdown)

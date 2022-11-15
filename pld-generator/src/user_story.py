@@ -64,7 +64,7 @@ class Issue:
         for block in body_splitted_by_blocks:
             tuppled_block = tuple(block.split("\n", maxsplit=1))
 
-            block_title = tuppled_block[0]
+            block_title = tuppled_block[0].strip()
             block_content = tuppled_block[1]
 
             block_dictionnary[block_title] = block_content.strip()
