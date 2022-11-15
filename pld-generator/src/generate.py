@@ -17,7 +17,9 @@ def generate() -> None:
     user_stories = [issue.to_user_story() for issue in issues_object_list]
     user_stories = sorted(user_stories, key=lambda story: story.repo_name)
 
-    repo_names_in_order = sorted(set([user_story.repo_name for user_story in user_stories]))
+    repo_names_in_order = sorted(
+        set([user_story.repo_name for user_story in user_stories])
+    )
 
     pld = PLD(user_stories)
 

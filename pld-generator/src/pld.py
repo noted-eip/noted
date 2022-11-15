@@ -5,14 +5,15 @@ import os, glob
 _HARD_CODED_FILES_PATH = "./hard-coded-pages"
 
 _REAL_REPO_NAMES = {
-    'api-gateway': "API Gateway",
-    'accounts-service': 'Accounts service',
-    'mobile': 'Mobile',
-    'noted': 'Misc',
-    'notes-service': 'Note service',
-    'recommendations-service': 'Recommendation service',
-    'web-desktop': 'Web'
+    "api-gateway": "API Gateway",
+    "accounts-service": "Accounts service",
+    "mobile": "Mobile",
+    "noted": "Misc",
+    "notes-service": "Note service",
+    "recommendations-service": "Recommendation service",
+    "web-desktop": "Web",
 }
+
 
 class PLD:
     before_user_stories: dict[str, str]
@@ -53,7 +54,7 @@ class PLD:
             f"{_HARD_CODED_FILES_PATH}/schemas.md"
         )
 
-    def to_markdown(self, repo_name_in_order:list=[]):
+    def to_markdown(self, repo_name_in_order: list = []):
         self._generate_markdown_before_user_stories()
         self._generate_rapports()
 
@@ -78,12 +79,12 @@ class PLD:
             if last_repo_name != story.repo_name:
                 new_category_title = ""
                 if order_available:
-                        new_category_title += f"{repo_name_index + 1} - "  
+                    new_category_title += f"{repo_name_index + 1} - "
                 new_category_title += _REAL_REPO_NAMES[story.repo_name]
-                output += md.title(md.bold(new_category_title), priority=2) + '\n'
+                output += md.title(md.bold(new_category_title), priority=2) + "\n"
                 index = 1
             last_repo_name = story.repo_name
-            if  order_available:
+            if order_available:
                 story.title = f"{repo_name_index + 1}.{index} - " + story.title.strip()
             output += story.to_markdown()
             index += 1

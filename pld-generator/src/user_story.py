@@ -30,14 +30,15 @@ class UserStory:
                 self.description,
                 md.title("Definitions Of Done", priority=3),
                 "\n".join(self.definitions_of_done),
-                '\n',
+                "\n",
                 f"<b>{self.duration_in_days} JH - {', '.join(self.assignees)}</b>",
-                '\n'
+                "\n",
             ]
         )
         if result is None:
             logging.error(f"'{self.title}' user story is not valid.")
         return result
+
 
 class Issue:
     title: str
@@ -96,8 +97,8 @@ class Issue:
                 duration_fix = duration_regex.group().replace(",", ".")
                 result.duration_in_days = duration_fix
             else:
-                result.duration_in_days = 'X'    
-                
+                result.duration_in_days = "X"
+
         except Exception as e:
             logging.error(f"error with issue '{result.title}': {e}\n")
         return result
