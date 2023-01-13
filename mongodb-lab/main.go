@@ -142,11 +142,11 @@ func generateGroupInviteLinks(numAccounts int, numInviteLinks int, newUniqueID f
 	return inviteLinks
 }
 
-func generateGroupConversations(numAccounts int, numConversations int, newUniqueID func() string) []GroupConversation {
+func generateGroupConversations(numAccounts int, numConversations int) []GroupConversation {
 	conversations := make([]GroupConversation, numConversations)
 
 	for i := 0; i < numConversations; i++ {
-		conversations[i].ID = newUniqueID()
+		conversations[i].ID = "c" + strconv.Itoa(i)
 		conversations[i].Name = newRandomSentence()
 		conversations[i].CreatedAt = time.Now()
 	}
@@ -157,7 +157,7 @@ func generateGroupConversations(numAccounts int, numConversations int, newUnique
 func generateGroups(coll *mongo.Collection, newUniqueID func() string, opts *GenerationOptions) {
 	for i := 0; i < opts.NumGroups; i++ {
 		group := Group{
-			ID:            newUniqueID(),
+			ID:            "g" + strconv.Itoa(i),
 			Name:          newRandomSentence(),
 			Description:   newRandomSentence(),
 			CreatedAt:     time.Now(),
@@ -165,7 +165,7 @@ func generateGroups(coll *mongo.Collection, newUniqueID func() string, opts *Gen
 			Members:       generateGroupMembers(opts.NumAccounts, opts.RangeNumMembersPerGroup.Random()),
 			Invites:       generateGroupInvites(opts.NumAccounts, opts.RangeNumInvitesPerGroup.Random()),
 			InviteLinks:   generateGroupInviteLinks(opts.NumAccounts, opts.RangeNumInvitesLinksPerGroup.Random(), newUniqueID),
-			Conversations: generateGroupConversations(opts.NumAccounts, opts.RangeNumConversationsPerGroup.Random(), newUniqueID),
+			Conversations: generateGroupConversations(opts.NumAccounts, opts.RangeNumConversationsPerGroup.Random()),
 		}
 		coll.InsertOne(context.TODO(), &group)
 		fmt.Printf("'%6d' out of '%6d' groups created.\r", i, opts.NumGroups)

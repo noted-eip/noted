@@ -1,1 +1,1 @@
-docker run --name mongodb-lab -d mongo:6.0.0
+docker run --name mongodb-lab -p 27017:27017 -d mongo:6
