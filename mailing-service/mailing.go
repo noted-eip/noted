@@ -14,13 +14,13 @@ import (
 )
 
 func (r *SendEmailsRequest) PostEmails(secret string) error {
-	subject := "Subject: " + r.subject + "!\n"
+	subject := "Subject: " + r.Subject + "!\n"
 	mine := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
-	msg := []byte(subject + mine + r.body)
+	msg := []byte(subject + mine + r.Body)
 	addr := "smtp.gmail.com:587"
 
-	auth := smtp.PlainAuth("", r.sender, secret, "smtp.gmail.com")
-	if err := smtp.SendMail(addr, auth, r.sender, r.to, msg); err != nil {
+	auth := smtp.PlainAuth("", r.Sender, secret, "smtp.gmail.com")
+	if err := smtp.SendMail(addr, auth, r.Sender, r.To, msg); err != nil {
 		return err
 	}
 	return nil
@@ -29,13 +29,13 @@ func (r *SendEmailsRequest) PostEmails(secret string) error {
 func (r *SendEmailsRequest) FormatEmails(templateFileName string) error {
 	extensions := parser.CommonExtensions | parser.AutoHeadingIDs
 	parser := parser.NewWithExtensions(extensions)
-	md := []byte(r.body)
+	md := []byte(r.Body)
 	html := markdown.ToHTML(md, parser, nil)
 	content := template.HTML(string(html[:]))
 
 	templateData := TemplateData{
 		CONTENT: content,
-		TITLE:   r.title,
+		TITLE:   r.Title,
 	}
 
 	t, err := template.ParseFiles(templateFileName)
@@ -47,7 +47,7 @@ func (r *SendEmailsRequest) FormatEmails(templateFileName string) error {
 	if err != nil {
 		return err
 	}
-	r.body = buf.String()
+	r.Body = buf.String()
 	return nil
 }
 
@@ -56,7 +56,7 @@ func (srv *service) SendEmails(ctx context.Context, req *SendEmailsRequest, mail
 		return status.Error(codes.Internal, "could not retrieve super secret from environement")
 	}
 
-	req.to = mails
+	req.To = mails
 
 	err := req.FormatEmails("mail.html")
 	if err != nil {

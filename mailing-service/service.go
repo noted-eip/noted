@@ -19,11 +19,11 @@ type service struct {
 }
 
 type SendEmailsRequest struct {
-	to      []string
-	sender  string
-	subject string
-	title   string
-	body    string
+	To      []string
+	Sender  string
+	Subject string
+	Title   string
+	Body    string
 }
 
 type TemplateData struct {
