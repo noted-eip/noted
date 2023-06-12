@@ -12,7 +12,6 @@ type Service interface {
 	SendEmails(ctx context.Context, req *SendEmailsRequest, mails []string) error
 }
 
-// type mailingAPI struct {
 type service struct {
 	logger *zap.Logger
 	secret string
