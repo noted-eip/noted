@@ -65,6 +65,7 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 			}
 		}
 		if index == -1 {
+			srv.mut.Unlock()
 			srv.logger.Error("no go routine with this identifier")
 			return
 		}
