@@ -7,7 +7,6 @@ import (
 type Service interface {
 	AddProcess(process *Process) error
 	CancelProcess(process *Process) error
-	debounceLogic(process *Process, index int)
 }
 
 type service struct {

@@ -1,6 +1,8 @@
 package background
 
 type Process struct {
+	// TODO: maybe unique id to manage better the different processes and the cancel process
+
 	// Goroutine id of the process
 	task uint32
 	// Object which describe the process (any object)
