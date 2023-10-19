@@ -84,9 +84,14 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 	go process.debounced(logic)
 }
 
-func (srv *service) remove(slice []Process, idx int) []Process {
+func (srv *service) remove(slice []Process, idx int) (res []Process) {
 	srv.mut.Lock()
 	defer srv.mut.Unlock()
-	res := append(slice[:idx], slice[idx+1:]...)
+	if len(slice)-1 == idx {
+		res = slice[:len(slice)-1]
+	} else {
+		res = append(slice[:idx], slice[idx+1:]...)
+
+	}
 	return res
 }
