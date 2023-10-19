@@ -1,6 +1,8 @@
 package background
 
 import (
+	"sync"
+
 	"go.uber.org/zap"
 )
 
@@ -10,6 +12,7 @@ type Service interface {
 }
 
 type service struct {
+	mut       sync.Mutex
 	logger    *zap.Logger
 	processes BackGroundProcesses
 }

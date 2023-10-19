@@ -106,7 +106,7 @@ def get_all_issues_from_project(project_id: str):
     query = """{
       node(id: \"""" + project_id + """\") {
         ... on ProjectV2 {
-          items(first: """ + str(MAX_ISSUES) + """, after: null) {
+          items(last: """ + str(MAX_ISSUES) + """, after: null) {
             nodes {
               content {
                 ... on Issue {

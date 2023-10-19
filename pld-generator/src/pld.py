@@ -11,7 +11,8 @@ _REAL_REPO_NAMES = {
     "noted": "Misc",
     "notes-service": "Note service",
     "recommendations-service": "Recommendation service",
-    "web-desktop": "Web",
+    "web": "Web",
+    "protorepo": "GRPC",
 }
 
 

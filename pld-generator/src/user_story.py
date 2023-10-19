@@ -23,6 +23,9 @@ class UserStory:
 
     @object_must_be_valid
     def to_markdown(self) -> str:
+        if "Maxime DODIN " in self.assignees:
+            print(self.title)
+            print(self.duration_in_days)
         result = "\n".join(
             [
                 md.title(md.bold(self.title), priority=2),
