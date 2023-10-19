@@ -78,15 +78,15 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 		if process.RepeatProcess {
 			srv.debounceLogic(process, id)
 		} else {
+			srv.mut.Lock()
 			srv.processes = srv.remove(srv.processes, index)
+			srv.mut.Unlock()
 		}
 	}
 	go process.debounced(logic)
 }
 
 func (srv *service) remove(slice []Process, idx int) (res []Process) {
-	srv.mut.Lock()
-	defer srv.mut.Unlock()
 	if len(slice)-1 == idx {
 		res = slice[:len(slice)-1]
 	} else {
