@@ -63,7 +63,6 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 		}
 		if index == -1 {
 			srv.logger.Error("no go routine with this identifier")
-			return
 		}
 
 		err := process.CallBackFct()
@@ -73,7 +72,7 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 		}
 		if process.RepeatProcess {
 			srv.debounceLogic(process, id)
-		} else {
+		} else if index != -1 {
 			srv.processes = srv.remove(srv.processes, index)
 		}
 	}
