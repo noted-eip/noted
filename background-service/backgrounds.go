@@ -40,14 +40,12 @@ func (srv *service) CancelProcess(process *Process) error {
 	}
 
 	for index := 0; index < len(srv.processes); index++ {
-		srv.mut.Lock()
 		if srv.processes[index].Identifier == process.Identifier {
 			// TODO cancel the goroutine by srv.processes.task
 			go srv.processes[index].debounced(func() {})
 			srv.processes = srv.remove(srv.processes, index)
 			index--
 		}
-		srv.mut.Unlock()
 	}
 	return nil
 }
@@ -57,7 +55,6 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 
 		// Get process ID (naive look-up)
 		index := -1
-		srv.mut.Lock()
 		for i := 0; i < len(srv.processes); i++ {
 			if srv.processes[i].Identifier == process.Identifier {
 				index = i
@@ -65,11 +62,9 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 			}
 		}
 		if index == -1 {
-			srv.mut.Unlock()
 			srv.logger.Error("no go routine with this identifier")
 			return
 		}
-		srv.mut.Unlock()
 
 		err := process.CallBackFct()
 		if err != nil {
@@ -79,9 +74,7 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 		if process.RepeatProcess {
 			srv.debounceLogic(process, id)
 		} else {
-			srv.mut.Lock()
 			srv.processes = srv.remove(srv.processes, index)
-			srv.mut.Unlock()
 		}
 	}
 	go process.debounced(logic)
