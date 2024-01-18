@@ -82,9 +82,8 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 func (srv *service) remove(slice []Process, idx int) (res []Process) {
 	if len(slice)-1 == idx {
 		res = slice[:len(slice)-1]
-	} else {
+	} else if idx < len(slice) {
 		res = append(slice[:idx], slice[idx+1:]...)
-
 	}
 	return res
 }
