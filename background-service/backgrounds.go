@@ -43,7 +43,7 @@ func (srv *service) CancelProcess(process *Process) error {
 		if srv.processes[index].Identifier == process.Identifier {
 			// TODO cancel the goroutine by srv.processes.task
 			go srv.processes[index].debounced(func() {})
-			srv.processes = srv.remove(srv.processes, index)
+			srv.processes = srv.remove(srv.processes, index, &srv.processes[index])
 			index--
 		}
 	}
@@ -73,18 +73,19 @@ func (srv *service) debounceLogic(process *Process, id interface{}) {
 		if process.RepeatProcess {
 			srv.debounceLogic(process, id)
 		} else if index != -1 {
-			srv.processes = srv.remove(srv.processes, index)
+			srv.processes = srv.remove(srv.processes, index, process)
 		}
 	}
 	go process.debounced(logic)
 }
 
-func (srv *service) remove(slice []Process, idx int) (res []Process) {
+func (srv *service) remove(slice []Process, idx int, p *Process) (res []Process) {
 	if len(slice)-1 == idx {
 		res = slice[:len(slice)-1]
-	} else {
+	} else if idx < len(slice) {
 		res = append(slice[:idx], slice[idx+1:]...)
-
+	} else {
+		srv.logger.Warn("can't remove process", zap.Any("idx", idx), zap.Any("len", len(slice)), zap.Any("id", p.Identifier), zap.Any("seconds_to_bounce", p.SecondsToDebounce))
 	}
 	return res
 }
