@@ -43,7 +43,7 @@ func (srv *service) CancelProcess(process *Process) error {
 		if srv.processes[index].Identifier == process.Identifier {
 			// TODO cancel the goroutine by srv.processes.task
 			go srv.processes[index].debounced(func() {})
-			srv.processes = srv.remove(srv.processes, index)
+			srv.processes = srv.remove(srv.processes, index, &srv.processes[index])
 			index--
 		}
 	}
